@@ -3,26 +3,24 @@ import java.awt.Color;
 
 public class Ant extends Critter {
 	
-	boolean stepsNorth;
-	int steps;
+	private boolean stepsNorth;
+	
 	public Ant(boolean stepsNorth) {
 		this.stepsNorth = stepsNorth;
-		this.steps = -1;
 	}
 
 	/** @return the next move of this Ant: alternating N and E if stepsNorth = true, else
 	                                        alternating S and W */
 	@Override
 	public Direction getMove() {
-		this.steps++;
 		if(stepsNorth) {
-			if(this.steps%2 == 0)
+			if(info.getNumSteps()%2 == 0)
 				return Direction.NORTH;
 			else
 				return Direction.EAST;
 		}
 		else {
-			if(this.steps%2 == 0)
+			if(info.getNumSteps()%2 == 0)
 				return Direction.SOUTH;
 			else
 				return Direction.WEST;
