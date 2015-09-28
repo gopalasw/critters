@@ -1,66 +1,56 @@
 import java.awt.Color;
 import java.util.Random;
 
-@NoLoad
+
 public class Lion extends Cat {
 
 	private Random r = new Random();
 	private boolean asleep;
+	@SuppressWarnings("unused")
 	private int directionIndex;
-	private int steps, sleep;
+	@SuppressWarnings("unused")
+	private int steps, sleepSteps, activeSteps;
 
-
+/**
+ * 
+ */
 	public Lion() {
 		this.steps = 0;
-		this.asleep = true;
-		this.sleep = this.r.nextInt(6);
+		this.asleep = false;
+		this.sleepSteps = this.r.nextInt(6);
 		this.directionIndex = this.r.nextInt(4);
-	}
-	
-	@Override
-	public Direction RandomMovement() {
-		if(steps<5) {
-			return Lion.Directions[directionIndex];
-		}
-		else {
-			steps = -1;
-			directionIndex = r.nextInt(4);
-			return Lion.Directions[directionIndex];
-		}
+		this.activeSteps = 0;
 	}
 
-	/** @return the next move of this Lion: Calls RandomMovement to
+	/**
+	 * @returns center, the equivalent to sleeping. Is a helper function
+	 *                      for getMove
+	 */
+	public Direction sleep() {
+		this.sleepSteps--;
+		if(this.sleepSteps <= 0) {
+			this.asleep = false;
+			this.sleepSteps = this.r.nextInt(6);
+			activeSteps++;
+		}
+		return Direction.CENTER;
+	}
+	/** @returns the next move of this Lion: Calls RandomMovement to
 	 *              randomly moves in one direction for 5 steps
 	 *              then in another direction for 5 steps etc. 
 	 *              Every 8 steps, rests for a 0-5 amount of steps*/
-	@Override
-	public Direction getMove() {
-		if(this.steps%8 == 0)
-		{
-			if(asleep)
-				return sleep();
-			else {
-				this.steps++;
-				this.asleep = true;
-				return RandomMovement();
-			}
-		}
-		else {
-			this.steps++;
-			return RandomMovement();
-		}
-		//this.steps++;
-		//return RandomMovement();
-
-	}
 	
-	public Direction sleep() {
-		this.sleep--;
-		if(this.sleep <= 0) {
-			this.asleep = false;
-			this.sleep = this.r.nextInt(6);
+	public Direction getMove() {
+		
+		if(activeSteps%8 == 0) { //when 8 moves have happened
+			this.asleep = true; //the lion should sleep
 		}
-		return Direction.CENTER;
+		if(this.asleep) //while the lion is asleep, activeSteps is not incremented
+			return sleep();
+		else {
+			activeSteps++; //while the lion is awake, moves in accordance to RandomMovement
+			return this.RandomMovement();
+		}
 	}
 
 	/** @return the food type for this Lion: meat */
@@ -84,9 +74,9 @@ public class Lion extends Cat {
 
 	/** @returns the String representation of this Lion */
 	public String toString() {
-		//if(asleep)
-		//	return "Z";
-		//else
+		if(asleep)
+			return "Z";
+		else
 			return "L";
 	}
 

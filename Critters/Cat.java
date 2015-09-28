@@ -10,7 +10,7 @@ public class Cat extends Critter{
 	
 	
 	public Cat() {
-		this.steps = -1;
+		this.steps = 5;
 		this.directionIndex = this.r.nextInt(4);
 	}
 	
@@ -18,20 +18,17 @@ public class Cat extends Critter{
 	 *               Randomly moves in one direction for 5 steps
 	 *               then in another direction for 5 steps etc.*/
 	public Direction RandomMovement() {
-		if(steps<5) {
-			return Cat.Directions[directionIndex];
-		}
-		else {
-			steps = -1;
+		if(steps == 0) {
+			steps = 5;
 			directionIndex = r.nextInt(4);
-			return Cat.Directions[directionIndex];
 		}
+		steps--;
+		return Cat.Directions[directionIndex];
 	}
 
 	/** @return the next move of this Cat: calls RandomMovement() */
 	@Override
 	public Direction getMove() {
-		this.steps++;
 		return RandomMovement();
 	}
 

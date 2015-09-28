@@ -1,6 +1,5 @@
 import java.awt.Color;
 
-
 public class Ant extends Critter {
 	
 	private boolean stepsNorth;

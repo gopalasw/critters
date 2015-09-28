@@ -1,6 +1,5 @@
 import java.awt.Color;
 
-
 public class Bird extends Critter{
 	
 	
