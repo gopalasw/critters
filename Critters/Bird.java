@@ -1,16 +1,17 @@
 import java.awt.Color;
 
 public class Bird extends Critter{
-	
+	private int totalSteps;
 	
 	public Bird() {
-
+		this.totalSteps = -1;
 	}
 
 	/** @return the next move of this Bird: moves in a clockwise square of length 3 */
 	@Override
 	public Direction getMove() {
-		return Bird.Directions[(info.getNumSteps()/3)%4];
+		totalSteps++;
+		return Bird.Directions[(totalSteps/3)%4];
 	}
 
 	/** @return the food type for this Bird: grass */
@@ -34,7 +35,7 @@ public class Bird extends Critter{
 	
 	/** @returns the String representation of this Bird */
 	public String toString() {
-		 Direction currentDirection = Bird.Directions[(info.getNumSteps()/3)%4];
+		 Direction currentDirection = Bird.Directions[(totalSteps/3)%4];
 		 if(currentDirection == Direction.NORTH) {
 			 return "∧";
 		 }

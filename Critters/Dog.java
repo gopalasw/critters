@@ -3,15 +3,19 @@ import java.awt.Color;
 
 public class Dog extends Critter{
 	
+	private int totalSteps;
+	
 	public Dog() {
+		this.totalSteps = -1;
 	}
 
 	/** @return the next move of this Dog: moves in a clockwise plus-shape*/
 	@Override
 	public Direction getMove() {
+		totalSteps++;
 		Direction choice;
-		int checkEven = info.getNumSteps()%2;
-		switch((info.getNumSteps()/3)%4) {
+		int checkEven = totalSteps%2;
+		switch((totalSteps/3)%4) {
 		case 0:
 			if(checkEven == 0)
 				choice = Direction.NORTH;

@@ -19,7 +19,7 @@ public class Lion extends Cat {
 		this.asleep = false;
 		this.sleepSteps = this.r.nextInt(6);
 		this.directionIndex = this.r.nextInt(4);
-		this.activeSteps = 0;
+		this.activeSteps = 1;
 	}
 
 	/**
